@@ -1,0 +1,12 @@
+<idea-plugin>
+    <id>com.chylex.forge.mappinghints</id>
+    <name>Minecraft Forge Mapping Hints</name>
+    <vendor>chylex</vendor>
+
+    <depends>com.intellij.modules.platform</depends>
+		<depends>com.intellij.java</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+	      <codeInsight.inlayProvider language="JAVA" implementationClass="com.chylex.forge.mappinghints.HintProvider"/>
+    </extensions>
+</idea-plugin>
