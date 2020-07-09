@@ -11,12 +11,12 @@ import com.intellij.openapi.editor.impl.EditorImpl
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiIdentifier
 import com.intellij.refactoring.suggested.endOffset
-import java.io.File
+import com.intellij.refactoring.suggested.startOffset
 
 @Suppress("UnstableApiUsage")
-class HintCollector(editor: Editor, private val useInlineHints: Boolean) : InlayHintsCollector{
+class HintCollector(editor: Editor, private val settings: PluginSettings) : InlayHintsCollector{
 	private val factory = PresentationFactory(editor as EditorImpl)
-	private val mappings = CsvMappings(File("C:\\mappings.csv")) // TODO
+	private val mappings = CsvMappings(settings)
 	
 	override fun collect(element: PsiElement, editor: Editor, sink: InlayHintsSink): Boolean{
 		val name = when(element){
@@ -25,15 +25,14 @@ class HintCollector(editor: Editor, private val useInlineHints: Boolean) : Inlay
 		}
 		
 		val translated = name?.let(mappings::map) ?: return true
-		val doc = editor.document
-		
-		val offset = element.endOffset
 		val hint = factory.smallText(translated)
 		
-		if (useInlineHints){
-			sink.addInlineElement(offset, relatesToPrecedingText = true, presentation = InsetPresentation(hint, top = 3 /* TODO */, left = 1, right = 1))
+		if (settings.displayHintsInline){
+			sink.addInlineElement(element.endOffset, relatesToPrecedingText = true, presentation = InsetPresentation(hint, top = 3 /* TODO */, left = 1, right = 1))
 		}
 		else{
+			val doc = editor.document
+			val offset = element.startOffset
 			val column = offset - doc.getLineStartOffset(doc.getLineNumber(offset))
 			
 			val presentation = SequencePresentation(listOf(
