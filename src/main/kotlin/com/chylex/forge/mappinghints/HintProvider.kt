@@ -19,7 +19,7 @@ import javax.swing.event.DocumentListener
 class HintProvider : InlayHintsProvider<PluginSettings>{
 	override val key = SettingsKey<PluginSettings>("chylexForgeMappingHints")
 	
-	override val name = "Minecraft Forge Mapping Suggestions"
+	override val name = "Minecraft Forge mapping suggestions"
 	override val previewText: String? = null
 	
 	override fun createConfigurable(settings: PluginSettings): ImmediateConfigurable{
@@ -44,11 +44,11 @@ class HintProvider : InlayHintsProvider<PluginSettings>{
 			
 			override val cases
 				get() = listOf(
-					Case("Show Missing", "show.missing", settings::showMissing),
-					Case("Show Empty", "show.empty", settings::showEmpty),
-					Case("Show Validated", "show.validated", settings::showValidated),
-					Case("Validated Names Use Blue Instead Of Green", "display.validatedblue", settings::validatedColorBlue),
-					Case("Make Hints Inline", "display.hintsinline", settings::displayHintsInline)
+					Case("Show missing", "show.missing", settings::showMissing),
+					Case("Show empty", "show.empty", settings::showEmpty),
+					Case("Show validated", "show.validated", settings::showValidated),
+					Case("Validated names are blue instead of green", "display.validatedblue", settings::validatedColorBlue),
+					Case("Hints are displayed inline", "display.hintsinline", settings::displayHintsInline)
 				)
 		}
 	}
