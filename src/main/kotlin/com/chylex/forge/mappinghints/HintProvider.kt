@@ -44,9 +44,10 @@ class HintProvider : InlayHintsProvider<PluginSettings>{
 			
 			override val cases
 				get() = listOf(
-					Case("Show Validated", "show.validated", settings::showValidated),
 					Case("Show Missing", "show.missing", settings::showMissing),
 					Case("Show Empty", "show.empty", settings::showEmpty),
+					Case("Show Validated", "show.validated", settings::showValidated),
+					Case("Validated Names Use Blue Instead Of Green", "display.validatedblue", settings::validatedColorBlue),
 					Case("Make Hints Inline", "display.hintsinline", settings::displayHintsInline)
 				)
 		}
